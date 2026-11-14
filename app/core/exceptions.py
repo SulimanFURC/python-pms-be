@@ -23,9 +23,11 @@ class AppException(Exception):
 
 async def app_exception_handler(
     request: Request,
-    exc: AppException,
+    exc: Exception,
 ) -> JSONResponse:
     """Handle expected application-specific exceptions."""
+
+    assert isinstance(exc, AppException), "app_exception_handler must receive an AppException"
 
     logger.warning(
         "Application error: %s | Path: %s",
